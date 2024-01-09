@@ -12,3 +12,5 @@ const findKey=(arr,key)=>{
 console.log(findKey([1,2,3,4],4))
 console.log(findKey([1,2,3,4,5],3))
 console.log(findKey([1,2,3,4],10))
+console.log([1,2,3,4].indexOf(2))
+console.log([1,2,3,4].indexOf(10))
