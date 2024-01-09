@@ -1,0 +1,8 @@
+What is Recursion?
+--> recursion is a problem solving technique where the solution  relies on the solutions of
+smaller instances of the same problem
+
+why Recursion?
+--> A great technique to simply your problem.
+--> If you find yourself breaking your problem into smaller version of the same problem
+then recursion is useful
