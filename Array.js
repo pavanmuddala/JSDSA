@@ -49,6 +49,23 @@ const spliceArr=[1,2,3,4,5,6]
 spliceArr.splice(2,2,"apple","banana")//at index two remove two add two elements banana and apple
 console.log(spliceArr,"splcie array")
 //6.reduce
+// The reduce() method executes a reducer function for array element.
+// The reduce() method returns a single value: the function's accumulated result.
+// The reduce() method does not execute the function for empty array elements.
+// The reduce() method does not change the original array.
+//At the first callback, there is no return value from the previous callback.
+
+// Normally, array element 0 is used as initial value, and the iteration starts from array element 1.
+// If an initial value is supplied, this is used, and the iteration starts from array element 0.
+//Syntax: array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+const reduceArray=[1,2,3,4,5]
+const sum=(total,current)=>{
+    return total+current
+}
+const reduceSum=reduceArray.reduce(sum,0)
+console.log(reduceSum,"reduce sum.....")
+
+
 
 
 //1. insert or remove from the end --> O(1)
