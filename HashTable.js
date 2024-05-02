@@ -17,44 +17,80 @@
 
 // Hash table usage
 // 1. Hash tables are typically implemented where contant time lookup and insertion are required
-    // Example database indexing and caching 
+// Example database indexing and caching 
 
-class HashTable{
-    constructor(size){
-        this.size=size;
-        this.table=new Array(size);
+class HashTable {
+    constructor(size) {
+        this.size = size;
+        this.table = new Array(size);
     }
-    hash(key){
-        let total=0
-        for(let i=0;i<key.length;i++){
-            total+=key.charCodeAt(i);
+    hash(key) {
+        let total = 0
+        for (let i = 0; i < key.length; i++) {
+            total += key.charCodeAt(i);
         }
-        return total%this.size
+        return total % this.size
     }
-    set(key,value){
-        
-        let index=this.hash(key);
-        console.log("index ...",index)
-        this.table[index]=value;
+    set(key, value) {
+        let index = this.hash(key);
+        let bucket = this.table[index];
+        if (!bucket) {
+            this.table[index] = [[key, value]];
+        }
+        else {
+            let sameKeyBucket = bucket.find(f => f[0] === key);
+            if (sameKeyBucket) {
+                sameKeyBucket[1] = value
+                // bucket.find(f=>f[0]===key)[1]=value
+            }
+            else {
+                bucket.push([key, value])
+                this.table[index] = bucket
+            }
+        }
     }
-    get(key){
-        let index=this.hash(key);
-        return this.table[index];
+    get(key) {
+        let index = this.hash(key);
+        const bucket = this.table[index];
+        if (bucket) {
+            const sameKeyBucket = bucket.find(f => f[0] === key)
+            if (sameKeyBucket) {
+                return sameKeyBucket;
+            }
+            else {
+                return undefined;
+            }
+        }
+        else {
+            return undefined
+        }
     }
-    remove(key){
-        let index=this.hash(key);
-        this.table[index]=undefined;
+    remove(key) {
+        let index = this.hash(key);
+        const bucket = this.table[index];
+        if (bucket) {
+            const sameKeyBucket = bucket.find(f => f[0] === key);
+            if (sameKeyBucket) {
+                bucket.splice(bucket.indexOf(sameKeyBucket), 1);
+            }
+            else{
+                this.table[index]=undefined
+            }
+        }
+        else {
+            console.log("no element present with that key " + key)
+        }
     }
 }
 
-const hashTable=new HashTable(50);
-hashTable.set("name","pavan");
-hashTable.set("address","medapadu");
-hashTable.set("phno",7993011526);
+const hashTable = new HashTable(50);
+hashTable.set("name", "pavan");
+hashTable.set("address", "medapadu");
+hashTable.set("mane", 7993011526);
 console.log(hashTable.get("name"));
 console.log(hashTable.get("address"));
-console.log(hashTable.get("phno"));
+console.log(hashTable.get("mane"));
 hashTable.remove("name");
 console.log(hashTable.get("name"));
 
-
+// console.log(hashTable.table)
